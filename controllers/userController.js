@@ -44,23 +44,18 @@ const getUsers = async ( req, res) => {
 //user con id --- /api/users/:id
 const getUserById = async ( req, res) => {
     try {
-        
+        const user = await userModel.findById(req.params.id).select("-password");
+        if(!user){
+            return res.status(404).json({ message: "Usuario no encontrado"});
+        }
+        res.json(user);
     } catch (error) {
         res.status(500).json({ message: "Error del Servidor", error: error.message });
     }
 };
 
-//user con id --- /api/users/:id
-const deleteUser = async ( req, res) => {
-    try {
-        
-    } catch (error) {
-        res.status(500).json({ message: "Error del Servidor", error: error.message });
-    }
-};
 
 module.exports = {
     getUsers,
-    getUserById,
-    deleteUser
+    getUserById
 };
