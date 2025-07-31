@@ -1,4 +1,4 @@
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 const express = require('express')
 const cors = require('cors')
 const path = require('path')
@@ -31,13 +31,16 @@ app.use(express.json());
 const authRoutes = require("./routes/authRoutes")
 const userRoutes = require("./routes/userRoutes")
 const taskRoutes = require("./routes/taskRoutes")
+const reportRoutes = require("./routes/reportRoutes")
 
 //URLS
-
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/tasks", taskRoutes);
-//app.use("/api/reports", reportRoutes);
+app.use("/api/reports", reportRoutes);
+
+//servidor para subir archivos
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
 
